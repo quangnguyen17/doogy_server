@@ -24,7 +24,7 @@
         const heartImage = "{% static 'assets/heart.png' %}";
         const heartImageFilled = "{% static 'assets/heart-filled.png' %}";
         const user_id = "{{ user_id }}";
-        const liked_urls = "{{ liked_urls }}".split("|");
+        const liked_urls = "{{ liked_urls }}".split(", ");
         liked_urls.pop();
     </script>
     <script src="{% static 'script.js' %}"></script>
@@ -34,6 +34,7 @@
 <body>
     <nav class="navbar navbar-expand-md navbar-light bg-light px-5">
         <h3 class="font-weight-bold m-0">Doogy!</h3>
+        <p class="m-0 mt-2 ml-2">(Beta)</p>
         {% if user != None %}
         <a id="favorites" href="/dashboard " class="btn btn-light px-3 ml-3 mr-2">Favorites</a>
         <a id="collection" href="/dashboard" class="btn btn-light px-3">My Wall</a>
@@ -98,7 +99,8 @@
                     </div>
                 </li>
             </ul>
-            <p id="just-text" class="m-0 mt-2 text-secondary">&copy;QuangNguyen 2020 - Doogy!<span><a href="#"
+            <p id="just-text" class="m-0 mt-2 text-secondary">&copy;QuangNguyen 2020 - Doogy!<span><a
+                        href="https://github.com/quangnguyen17/doogy_server"
                         class="nav-link text-secondary d-inline-block">View project on GitHub</a></span></p>
         </div>
     </footer>

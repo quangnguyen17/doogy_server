@@ -16,13 +16,13 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Questrial&display=swap" rel="stylesheet">
-    <title>Welcome</title>
+    <title>Doogy! - Welcome</title>
     <style>
         * {
             font-family: 'Questrial', sans-serif;
         }
 
-        h3 {
+        .text-box {
             position: absolute;
             top: 20px;
             left: 24px;
@@ -46,17 +46,6 @@
 
 <body>
     <div class="container-fluid">
-        <!-- <div class="row justify-content-center align-items-middle">
-            <div class="col-6 p-0 m-0">
-                {% if messages %}
-                <ul class="messages m-0 text-center text-danger list-inline">
-                    {% for message in messages %}
-                    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
-            </div>
-        </div> -->
         <div class="row h-full">
             <div class="col-4 bg-dark text-light text-center p-0">
                 {% if messages %}
@@ -68,7 +57,10 @@
                     {% endfor %}
                 </ul>
                 {% endif %}
-                <h3 class="font-weight-bold text-light">Doogy!</h3>
+                <div class="text-box">
+                    <h3 class="font-weight-bold text-light d-inline-block">Doogy!</h3>
+                    <p class="m-0 mt-2 ml-1 d-inline-block">(Beta)</p>
+                </div>
                 <div class="sign-in-form py-5 my-5">
                     <h1 class="my-5 font-weight-bold">Sign In</h1>
                     <form action="login" method="POST" class="w-75 text-center mx-auto">
@@ -112,7 +104,8 @@
                             value="Sign Up">
                     </form>
                 </div>
-                <p id="just-text" class="m-0 text-secondary">&copy;QuangNguyen 2020 - Doogy!<span><a href="#"
+                <p id="just-text" class="m-0 text-secondary">&copy;QuangNguyen 2020 - Doogy!<span><a
+                            href="https://github.com/quangnguyen17/doogy_server"
                             class="nav-link text-secondary d-inline-block">View project on GitHub</a></span></p>
             </div>
         </div>

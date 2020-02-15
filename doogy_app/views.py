@@ -41,17 +41,13 @@ def like(request, user_id):
     user = User.objects.all().get(id=user_id)
     image_url = request.GET['image_url']
     response = "/static/assets/heart-filled.png"
+    # response = "/static/assets/heart.png"
 
-    liked_urls_array = user.liked_urls_array()
-    if image_url in liked_urls_array:
-        for index in range(len(liked_urls_array)):
-            if liked_urls_array[index] == image_url:
-                liked_urls_array.pop(index)
+    liked_image_urls = user.liked_urls.split(", ")
+    liked_image_urls.pop()
 
-        user.liked_urls = ", ".join(liked_urls_array)
-        response = "/static/assets/heart.png"
-    else:
-        user.liked_urls += f"{image_url}, "
+    print(", ".join(liked_image_urls))
+    print(user.liked_urls)
 
     user.save()
     return HttpResponse(response)

@@ -5,20 +5,21 @@ bannerUrls = []
 quotes = []
 
 function like(event) {
-    if (user_id.length > 0) {
-        imageURL = absoluteURL($(event.target).parent().parent().parent().parent().parent().css('background-image'));
-
-        $.ajax({
-            type: "GET",
-            url: `/like/${user_id}`,
-            data: { 'image_url': imageURL },
-            success: function (response) {
-                $(event.target).attr('src', response);
-            }
-        });
-    } else {
+    if (user_id.length < 1) {
         window.location.replace("/welcome");
     }
+
+    button = $(event.target);
+    imageURL = absoluteURL(button.parent().parent().parent().parent().css('background-image'));
+
+    $.ajax({
+        type: "GET",
+        url: `/like/${user_id}`,
+        data: { 'image_url': imageURL },
+        success: function (response) {
+            button.attr('src', response);
+        }
+    });
 }
 
 function getURL() {
@@ -41,9 +42,7 @@ function fetchImages() {
                     <div class="image-box" style="background-image: url(${imageURL});">
                         <div class="text-box text-center text-light">
                             <div class="content-align-bottom text-center align-items-end">
-                                <div class="like-section p-0 d-inline-block">
-                                    <button id="like" class="btn p-0 mt-auto"><img class="p-0" id="heart" src="${heartLikedImage}" alt=""></button>
-                                </div>
+                                <button id="like" class="btn like-section p-0 mt-auto"><img class="p-0" id="heart" src="${heartLikedImage}" alt=""></button>
                                 <div class="buttons d-inline-block">
                                     <a class="btn btn-sm btn-outline-light d-inline-block" href="${imageURL}" download>Download</a>
                                     <br>
@@ -57,8 +56,8 @@ function fetchImages() {
                 $('.second-row').append(code);
             }
 
-            $('.second-row #like').on('click', function (e) {
-                like(e);
+            $('.second-row #like').on('click', function (event) {
+                like(event);
             });
         }
     });
