@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Questrial&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <script>
+        const importedQuotes = "{% static 'quotes.json' %}";
+        const heartImage = "{% static 'assets/heart.png' %}";
+        const heartImageFilled = "{% static 'assets/heart-filled.png' %}";
+        const user_id = "{{ user_id }}";
+        const liked_urls = "{{ liked_urls }}".split("|");
+        liked_urls.pop();
+    </script>
+    <script src="{% static 'script.js' %}"></script>
+    <title>Doogy! - Home</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-light bg-light px-5">
+        <h3 class="font-weight-bold m-0">Doogy!</h3>
+        {% if user != None %}
+        <a id="favorites" href="/dashboard " class="btn btn-light px-3 ml-3 mr-2">Favorites</a>
+        <a id="collection" href="/dashboard" class="btn btn-light px-3">My Wall</a>
+        <p class="ml-auto mr-4 my-0">{{ user.name }}</p>
+        <a href="/logout" class="btn btn-warning px-3">Log Out</a>
+        {% else %}
+        <a id="favorites" href="/welcome" class="btn btn-light px-3 ml-3 mr-2">Favorites</a>
+        <a id="collection" href="/welcome" class="btn btn-light px-3">My Wall</a>
+        <a class="nav-link ml-auto text-secondary px-2 mr-4" href="/welcome">Sign up to save your favorite photos.</a>
+        <a href="/welcome" class="btn btn-secondary px-3">Sign In</a>
+        {% endif %}
+    </nav>
+    <div id="carouselExampleIndicators" class="carousel slide w-100" style="z-index: 1;" data-ride="carousel">
+        <div class="carousel-inner w-100">
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+    <div class="container-fluid px-5 py-5">
+        <div class="row justify-content-center mb-4 text-center">
+            <table class="w-75">
+                <tr class="text-center">
+                    <td>
+                        <h3 class="mb-0">Get by Breed:</h3>
+                    </td>
+                    <td class="pl-0 pr-5 w-50">
+                        <select name="value" class="form-control bg-light px-2 my-0 border-0 rounded-pill" id="select">
+                            <option value="random">#random</option>
+                        </select>
+                    </td>
+                    <td>
+                        <h3 class="m-0">Showing: <span id="show-breed">#random</span></h3>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="row second-row justify-content-left">
+        </div>
+        <div class="row mt-3">
+            <div class="col text-center p-1">
+                <button id="more-doogy" onclick="fetchImages()" class="btn btn-light">More
+                    Doogy..!</button>
+            </div>
+        </div>
+    </div>
+    <footer class="footer text-center py-3 bg-light">
+        <div class="div my-auto">
+            <ul class="list-inline m-0">
+                <li class="list-inline-item">
+                    <h4 class="d-inline-block align-middle mt-2">Dark Mode:</h4>
+                </li>
+                <li class="list-inline-item">
+                    <div class="btn-group d-inline-block" role="group" aria-label="Basic example">
+                        <button id="light-mode" type="button" class="btn btn-light btn-color">ON</button>
+                        <button id="dark-mode" type="button" class="btn btn-light btn-color active">OFF</button>
+                    </div>
+                </li>
+            </ul>
+            <p id="just-text" class="m-0 mt-2 text-secondary">&copy;QuangNguyen 2020 - Doogy!<span><a href="#"
+                        class="nav-link text-secondary d-inline-block">View project on GitHub</a></span></p>
+        </div>
+    </footer>
+</body>
+
+</html>
