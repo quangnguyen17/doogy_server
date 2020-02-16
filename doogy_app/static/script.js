@@ -4,13 +4,33 @@ breeds = []
 bannerUrls = []
 quotes = []
 
+function view(event) {
+    absoluteURL = getAbsoluteURL($(event.target).parent().css('background-image'));
+
+    $.c
+    // $.ajax({
+    //     type: "GET",
+    //     url: "/view",
+    //     data: { 'image_url': absoluteURL },
+    //     success: function (data, response) {
+    //         console.log(data.redirect);
+    //         if (data.redirect) {
+    //             console.log(data.redirect);
+    //             window.location.href = data.redirect
+    //         } else {
+
+    //         }
+    //     }
+    // });
+}
+
 function like(event, callBack) {
     if (user_id.length < 1) {
         window.location.replace("/welcome");
     }
 
     button = $(event.target);
-    imageURL = absoluteURL(button.parent().parent().parent().parent().css('background-image'));
+    imageURL = getAbsoluteURL(button.parent().parent().parent().parent().css('background-image'));
 
     $.ajax({
         type: "GET",
@@ -40,14 +60,14 @@ function fetchImages() {
                 imageURL = response.message[index];
                 heartLikedImage = (liked_urls.includes(imageURL)) ? heartImageFilled : heartImage;
                 code = `<div class="col-3 p-1 text-center">
-                    <div class="image-box" style="background-image: url(${imageURL});">
+                    <div class="image-box" @click.self="parent" style="background-image: url(${imageURL});">
                         <div class="text-box text-center text-light">
                             <div class="content-align-bottom text-center align-items-end">
                                 <button id="like" class="btn like-section p-0 mt-auto"><img class="p-0" id="heart" src="${heartLikedImage}" alt=""></button>
                                 <div class="buttons d-inline-block">
-                                    <a class="btn btn-sm btn-outline-light d-inline-block" href="${imageURL}" download>Download</a>
+                                    <a id="download" class="btn btn-sm btn-outline-light d-inline-block" href="${imageURL}" download>Download</a>
                                     <br>
-                                    <a class="btn btn-sm btn-outline-light d-inline-block mt-2" href="${imageURL}" target="_blank">View Raw</a>
+                                    <a id="view-raw" class="btn btn-sm btn-outline-light d-inline-block mt-2" href="${imageURL}" target="_blank">View Raw</a>
                                 </div>
                             </div>
                         </div>
@@ -58,10 +78,24 @@ function fetchImages() {
             }
 
             $('.second-row #like').on('click', function (event) {
+                stopBubbling(event);
                 like(event);
+            });
+
+            $('.second-row .image-box').on('click', function (event) {
+                if (event.target.id === "download" || event.target.id === "view-raw") {
+                    stopBubbling(event);
+                } else {
+                    view(event);
+                }
             });
         }
     });
+}
+
+function stopBubbling(event) {
+    event.stopPropagation();
+    event.cancelBubble = true;
 }
 
 function renderCarousel() {
@@ -98,8 +132,11 @@ function updateUI(darkMode) {
         $('#show-breed').addClass('text-light');
         $('select').addClass('bg-dark text-light');
         $('.btn-color').addClass('btn-dark');
-        $('.jumbotron').addClass('bg-dark text-light');
+        $('.jumbotron').addClass('bg-dark');
+        $('.jumbotron h2').addClass('text-light');
         $('.col-3 h2').addClass('text-light');
+        $('#heart-img').css('filter', 'invert(100%)');
+        $('li p').addClass('text-light');
     } else {
         $('body').css('background-color', 'white');
         $('nav').removeClass('bg-dark navbar-dark');
@@ -114,8 +151,11 @@ function updateUI(darkMode) {
         $('#show-breed').removeClass('text-light');
         $('select').removeClass('bg-dark text-light');
         $('.btn-color').removeClass('btn-dark');
-        $('.jumbotron').removeClass('bg-dark text-light');
+        $('.jumbotron').removeClass('bg-dark');
+        $('.jumbotron h2').removeClass('text-light');
         $('.col-3 h2').removeClass('text-light');
+        $('#heart-img').css('filter', 'invert(0%)');
+        $('li p').removeClass('text-light');
     }
 }
 
@@ -135,24 +175,21 @@ function addDarkModeSupport() {
     });
 }
 
-function absoluteURL(url) {
-    start = 0;
-    urlString = "";
+function getAbsoluteURL(url) {
+    temp = 0;
+    URL = "";
+
     for (const index in url) {
-        if (new String(url[index]).valueOf() == new String(`"`).valueOf()) {
-            if (start > 0) {
-                start = 0;
-            } else {
-                start = 1;
-            }
+        if (url[index] === `"`) {
+            temp = (temp > 0) ? 0 : 1
         } else {
-            if (start > 0) {
-                urlString += url[index];
+            if (temp > 0) {
+                URL += url[index];
             }
         }
     }
 
-    return urlString;
+    return URL;
 }
 
 function getBreeds() {

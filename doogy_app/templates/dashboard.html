@@ -24,21 +24,12 @@
             height: 150px;
             width: 150px;
         }
-
-        html,
-        body {
-            height: 100%;
-        }
-
-        .container {
-            min-height: 100%;
-        }
     </style>
     <script>
         user_id = "{{ user_id }}";
     </script>
     <script src="{% static 'script.js' %}"></script>
-    <title>Doogy! - Dashboard</title>
+    <title>Doogy! - View</title>
 </head>
 
 <body>
@@ -54,17 +45,17 @@
         <div class="row justify-content-center align-items-start">
             <div class="col-3 text-center">
                 <div class="jumbotron bg-light">
-                    <img id="profile-image" class="bg-light rounded-circle mb-3" src="{% static 'assets/waldo.jpg' %}"
+                    <img id="profile-image" class="bg-light rounded-circle mb-4" src="{% static 'assets/waldo.jpg' %}"
                         alt="">
                     <h2 class="font-weight-bold mb-2">{{ user.name }}</h2>
-                    <p class="mb-1">{{ user.email }}</p>
-                    <p class="m-0">Joined Doogy! on {{ user.created_at.date }}</p>
+                    <p class="mb-1 text-secondary">{{ user.email }}</p>
+                    <p class="m-0 text-secondary">Joined Doogy! on {{ user.created_at.date }}</p>
                 </div>
                 <h2 class="font-weight-bold d-block w-100">My Wall</h2>
-                <p class="text-secondary">(Wall feature is coming soon)</p>
+                <p class="text-secondary">(Feature coming soon!)</p>
             </div>
             <div class="col-9 pl-5">
-                <div class="row ml-1">
+                <div class="row ml-1 mb-3">
                     <h3 class="d-block w-100 font-weight-bold">Favorites</h3>
                     {% if liked_urls|length < 1 %}
                     <p class="text-secondary">You don't have any favorites. Navigate back to home page to explore more!
@@ -102,7 +93,7 @@
             </div>
         </div>
     </div>
-    <footer class="footer text-center mt-3 py-3 bg-light">
+    <footer class="text-center mt-3 py-3 bg-light">
         <div class="div my-auto">
             <ul class="list-inline m-0">
                 <li class="list-inline-item">

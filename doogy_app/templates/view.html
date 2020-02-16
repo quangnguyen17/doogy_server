@@ -4,11 +4,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Questrial&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <script>
+        const importedQuotes = "{% static 'quotes.json' %}";
+        const heartImage = "{% static 'assets/heart.png' %}";
+        const heartImageFilled = "{% static 'assets/heart-filled.png' %}";
+        const user_id = "{{ user_id }}";
+    </script>
+    <script src="{% static 'script.js' %}"></script>
     <title>Doogy! - View</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        .container {
+            min-height: calc(100% - 116px);
+            overflow: auto;
+        }
+
+        .modified {
+            width: 100%;
+            padding-top: 100%;
+            border-radius: 32px;
+            position: relative;
+        }
+
+        .text-box:hover {
+            opacity: 0;
+        }
+
+        #heart-img {
+            height: 62.5px;
+            width: 62.5px;
+            object-fit: contain;
+            /* filter: invert(100%); */
+            /* -webkit-filter: invert(100%); */
+        }
+
+        .footer {
+            position: relative;
+            padding-top: -116px;
+            clear: both;
+        }
+    </style>
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-md navbar-light bg-light px-5">
+        <h3 class="font-weight-bold mb-1">Doogy!</h3>
+        <p class="m-0 mt-1 ml-2">(Beta)</p>
+        {% if user != None %}
+        <a id="favorites" href="/" class="btn btn-light px-3 ml-4 mr-2">Home</a>
+        <a id="collection" href="/dashboard" class="btn btn-light px-3 ml-3 mr-2">Dashboard</a>
+        <p class="ml-auto mr-4 my-0">{{ user.name }}</p>
+        <a href="/logout" class="btn btn-warning px-3">Log Out</a>
+        {% else %}
+        <a href="/" class="btn btn-light px-3 ml-3 mr-2">Home</a>
+        <a class="nav-link ml-auto text-secondary px-2 mr-4" href="/welcome">Sign up to save your favorite photos.</a>
+        <a href="/welcome" class="btn btn-secondary px-3">Sign In</a>
+        {% endif %}
+    </nav>
+    <div class="container">
+        <div class="row" style="height: 56px;"></div>
+        <div class="row py-5 align-items-center">
+            <div class="col-5">
+                <div class="image-box modified" style="background-image: url();">
+                    <div class="text-box text-center text-light">
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <ul class="list-inline p-3">
+                    <li class="mb-4">
+                        <button id="like" class="btn p-0 mt-auto"><img id="heart-img" class="p-0"
+                                src="{% static '/assets/heart.png' %}" alt=""></button>
+                    </li>
+                    <li class="mb-1">
+                        <a id="download" class="btn btn-lg btn-light d-inline-block breed-btn" href="{{ url }}"
+                            download>Download</a>
+                    </li>
+                    <li class="mb-3">
+                        <a id="viewRaw" class="btn btn-lg btn-light d-inline-block breed-btn mt-2" href="{{ url }}"
+                            target="_blank">View
+                            Raw</a>
+                    </li>
+                    <li>
+                        <p>Image URL: {{ url }}</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
+    </div>
+    <footer class="footer text-center mt-3 py-3 bg-light">
+        <div class="div my-auto">
+            <ul class="list-inline m-0">
+                <li class="list-inline-item">
+                    <h4 class="d-inline-block align-middle mt-2">Dark Mode:</h4>
+                </li>
+                <li class="list-inline-item">
+                    <div class="btn-group d-inline-block" role="group" aria-label="Basic example">
+                        <button id="light-mode" type="button" class="btn btn-light btn-color">ON</button>
+                        <button id="dark-mode" type="button" class="btn btn-light btn-color active">OFF</button>
+                    </div>
+                </li>
+            </ul>
+            <p id="just-text" class="m-0 text-secondary">&copy;QuangNguyen 2020 - Doogy!<span><a
+                        href="https://github.com/quangnguyen17/doogy_server"
+                        class="nav-link text-secondary d-inline-block">View project on GitHub</a></span></p>
+        </div>
+    </footer>
 </body>
 
 </html>

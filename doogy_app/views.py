@@ -60,3 +60,21 @@ def like(request, user_id):
 
 def user_logged_in(request):
     return 'user_id' in request.session and request.session['user_id'] != None
+
+
+def view(request):
+    context = {
+        'url': request.GET['image_url'],
+        'user_id': None,
+        'user': None
+    }
+
+    user = User.objects.all().get(id=request.session['user_id'])
+
+    context = {
+        'url': request.GET['image_url'],
+        'user_id': user.id,
+        'user': user
+    }
+
+    return render(request, 'view.html', context)

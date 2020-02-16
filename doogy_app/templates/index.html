@@ -16,6 +16,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/mgalante/jquery.redirect/master/jquery.redirect.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Questrial&display=swap" rel="stylesheet">
     {% load static %}
     <link rel="stylesheet" href="{% static 'styles.css' %}">
@@ -40,7 +41,7 @@
         <a id="collection" href="/dashboard" class="btn btn-light px-3">My Wall</a>
         <form class="form-inline ml-3 w-25">
             <input id="search-bar" class="form-control mr-sm-2 bg-light border-0 w-100"
-                placeholder="Search... (Coming soon)" type="search" aria-label="Search">
+                placeholder="Search... (Feature coming soon)" type="search" aria-label="Search">
         </form>
         <p class="ml-auto mr-4 my-0">{{ user.name }}</p>
         <a href="/logout" class="btn btn-warning px-3">Log Out</a>
@@ -49,7 +50,7 @@
         <a id="collection" href="/welcome" class="btn btn-light px-3">My Wall</a>
         <form class="form-inline ml-3 w-25">
             <input id="search-bar" class="form-control mr-sm-2 bg-light border-0 w-100"
-                placeholder="Search... (Coming soon)" type="search" aria-label="Search">
+                placeholder="Search... (Feature coming soon)" type="search" aria-label="Search">
         </form>
         <a class="nav-link ml-auto text-secondary px-2 mr-4" href="/welcome">Sign up to save your favorite photos.</a>
         <a href="/welcome" class="btn btn-secondary px-3">Sign In</a>
