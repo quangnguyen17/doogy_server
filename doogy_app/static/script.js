@@ -4,7 +4,7 @@ breeds = []
 bannerUrls = []
 quotes = []
 
-function like(event) {
+function like(event, callBack) {
     if (user_id.length < 1) {
         window.location.replace("/welcome");
     }
@@ -18,6 +18,7 @@ function like(event) {
         data: { 'image_url': imageURL },
         success: function (response) {
             button.attr('src', response);
+            callBack(response);
         }
     });
 }
@@ -38,7 +39,7 @@ function fetchImages() {
             for (const index in response.message) {
                 imageURL = response.message[index];
                 heartLikedImage = (liked_urls.includes(imageURL)) ? heartImageFilled : heartImage;
-                code = `<div class="col-3 text-center">
+                code = `<div class="col-3 p-1 text-center">
                     <div class="image-box" style="background-image: url(${imageURL});">
                         <div class="text-box text-center text-light">
                             <div class="content-align-bottom text-center align-items-end">
@@ -86,6 +87,7 @@ function updateUI(darkMode) {
     if (!darkMode) {
         $('body').css('background-color', 'rgb(10, 10, 10)');
         $('nav').addClass('bg-dark navbar-dark');
+        $('nav #search-bar').addClass('bg-dark text-light');
         $('#favorites, #collection').addClass('btn-dark');
         $('nav h3, nav p').css('color', 'white');
         $('footer').addClass('bg-dark');
@@ -96,9 +98,12 @@ function updateUI(darkMode) {
         $('#show-breed').addClass('text-light');
         $('select').addClass('bg-dark text-light');
         $('.btn-color').addClass('btn-dark');
+        $('.jumbotron').addClass('bg-dark text-light');
+        $('.col-3 h2').addClass('text-light');
     } else {
         $('body').css('background-color', 'white');
         $('nav').removeClass('bg-dark navbar-dark');
+        $('nav #search-bar').removeClass('bg-dark text-light');
         $('#favorites, #collection').removeClass('btn-dark');
         $('nav h3, nav p').css('color', 'black');
         $('footer').removeClass('bg-dark');
@@ -109,6 +114,8 @@ function updateUI(darkMode) {
         $('#show-breed').removeClass('text-light');
         $('select').removeClass('bg-dark text-light');
         $('.btn-color').removeClass('btn-dark');
+        $('.jumbotron').removeClass('bg-dark text-light');
+        $('.col-3 h2').removeClass('text-light');
     }
 }
 

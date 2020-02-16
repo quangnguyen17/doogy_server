@@ -43,7 +43,13 @@ class User(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
 
-    def liked_urls_array(self):
-        list = self.liked_urls.split(', ')
-        list.pop()
-        return list
+    def valid_urls(self):
+        liked_urls = self.liked_urls.split(", ")
+        valid_urls = []
+
+        for i in range(len(liked_urls)):
+            url = liked_urls[i]
+            if len(url) > 0:
+                valid_urls.append(url)
+
+        return valid_urls
