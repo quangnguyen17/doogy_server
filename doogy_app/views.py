@@ -69,12 +69,10 @@ def view(request):
         'user': None
     }
 
-    user = User.objects.all().get(id=request.session['user_id'])
-
-    context = {
-        'url': request.GET['image_url'],
-        'user_id': user.id,
-        'user': user
-    }
+    if user_logged_in(request):
+        user = User.objects.all().get(id=request.session['user_id'])
+        context['liked_urls'] = user.liked_urls
+        context['user_id'] = user.id
+        context['user'] = user
 
     return render(request, 'view.html', context)

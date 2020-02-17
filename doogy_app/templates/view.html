@@ -21,9 +21,10 @@
     <link rel="stylesheet" href="{% static 'styles.css' %}">
     <script>
         const importedQuotes = "{% static 'quotes.json' %}";
-        const heartImage = "{% static 'assets/heart.png' %}";
-        const heartImageFilled = "{% static 'assets/heart-filled.png' %}";
+        const heartImage = "{% static '/assets/heart.png' %}";
+        const heartImageFilled = "{% static '/assets/heart-filled.png' %}";
         const user_id = "{{ user_id }}";
+        const liked_urls = "{{ liked_urls }}".split(", ");
     </script>
     <script src="{% static 'script.js' %}"></script>
     <title>Doogy! - View</title>
@@ -53,8 +54,6 @@
             height: 62.5px;
             width: 62.5px;
             object-fit: contain;
-            /* filter: invert(100%); */
-            /* -webkit-filter: invert(100%); */
         }
 
         .footer {
@@ -82,37 +81,40 @@
     </nav>
     <div class="container">
         <div class="row" style="height: 56px;"></div>
-        <div class="row py-5 align-items-center">
+        <div class="row pt-5 pb-0 mb-0 align-items-center">
             <div class="col-5">
-                <div class="image-box modified" style="background-image: url();">
+                <div class="image-box modified" style="background-image: url({{ url }});">
                     <div class="text-box text-center text-light">
                     </div>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-6">
                 <ul class="list-inline p-3">
                     <li class="mb-4">
-                        <button id="like" class="btn p-0 mt-auto"><img id="heart-img" class="p-0"
-                                src="{% static '/assets/heart.png' %}" alt=""></button>
-                    </li>
-                    <li class="mb-1">
-                        <a id="download" class="btn btn-lg btn-light d-inline-block breed-btn" href="{{ url }}"
-                            download>Download</a>
+                        <button id="onLike" class="btn p-0 mt-auto">
+                            {% if url in liked_urls %}
+                            <img id="heart-img" class="p-0" src="{% static '/assets/heart-filled.png' %}" alt="">
+                            {% else %}
+                            <img id="heart-img" class="p-0" src="{% static '/assets/heart.png' %}" alt="">
+                            {% endif %}
+                        </button>
                     </li>
                     <li class="mb-3">
-                        <a id="viewRaw" class="btn btn-lg btn-light d-inline-block breed-btn mt-2" href="{{ url }}"
+                        <a id="download" class="btn btn-lg btn-light d-inline-block breed-btn" href="{{ url }}"
+                            download>Download</a>
+                        <a id="viewRaw" class="btn btn-lg btn-light d-inline-block breed-btn" href="{{ url }}"
                             target="_blank">View
                             Raw</a>
                     </li>
-                    <li>
-                        <p>Image URL: {{ url }}</p>
+                    <li class="ml-1">
+                        <p>&#60;Image URL&gt;<br> <a class="text-secondary" href="{{ url }}">{{ url }}</a></p>
                     </li>
                 </ul>
             </div>
         </div>
 
     </div>
-    <footer class="footer text-center mt-3 py-3 bg-light">
+    <footer class="footer text-center py-3 bg-light">
         <div class="div my-auto">
             <ul class="list-inline m-0">
                 <li class="list-inline-item">
@@ -130,6 +132,15 @@
                         class="nav-link text-secondary d-inline-block">View project on GitHub</a></span></p>
         </div>
     </footer>
+    <script>
+        $('#onLike').on('click', function (event) {
+            if (user_id.length > 0) {
+                handleLike($(event.target), "{{ url }}");
+            } else {
+                window.location.replace("/welcome");
+            }
+        });
+    </script>
 </body>
 
 </html>

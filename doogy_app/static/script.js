@@ -7,21 +7,16 @@ quotes = []
 function view(event) {
     absoluteURL = getAbsoluteURL($(event.target).parent().css('background-image'));
 
-    $.c
-    // $.ajax({
-    //     type: "GET",
-    //     url: "/view",
-    //     data: { 'image_url': absoluteURL },
-    //     success: function (data, response) {
-    //         console.log(data.redirect);
-    //         if (data.redirect) {
-    //             console.log(data.redirect);
-    //             window.location.href = data.redirect
-    //         } else {
+    var form = $(document.createElement('form'));
+    $(form).attr("action", "/view");
+    $(form).attr("method", "GET");
+    $(form).css("display", "none");
 
-    //         }
-    //     }
-    // });
+    var input_employee_name = $("<input>").attr("type", "text").attr("name", "image_url").val(absoluteURL);
+    $(form).append($(input_employee_name));
+
+    form.appendTo(document.body);
+    $(form).submit();
 }
 
 function like(event, callBack) {
@@ -38,7 +33,29 @@ function like(event, callBack) {
         data: { 'image_url': imageURL },
         success: function (response) {
             button.attr('src', response);
-            callBack(response);
+
+            if (callBack) {
+                callBack(response);
+            }
+        }
+    });
+}
+
+function handleLike(button, imageURL, callBack) {
+    if (user_id.length < 1) {
+        window.location.replace("/welcome");
+    }
+
+    $.ajax({
+        type: "GET",
+        url: `/like/${user_id}`,
+        data: { 'image_url': imageURL },
+        success: function (response) {
+            button.attr('src', response);
+
+            if (callBack) {
+                callBack(response);
+            }
         }
     });
 }
@@ -57,17 +74,17 @@ function fetchImages() {
         url: getURL(),
         success: function (response) {
             for (const index in response.message) {
-                imageURL = response.message[index];
-                heartLikedImage = (liked_urls.includes(imageURL)) ? heartImageFilled : heartImage;
+                fetchedImageURL = response.message[index];
+                heartLikedImage = (liked_urls.includes(fetchedImageURL)) ? heartImageFilled : heartImage;
                 code = `<div class="col-3 p-1 text-center">
-                    <div class="image-box" @click.self="parent" style="background-image: url(${imageURL});">
+                    <div class="image-box" @click.self="parent" style="background-image: url(${fetchedImageURL});">
                         <div class="text-box text-center text-light">
                             <div class="content-align-bottom text-center align-items-end">
                                 <button id="like" class="btn like-section p-0 mt-auto"><img class="p-0" id="heart" src="${heartLikedImage}" alt=""></button>
                                 <div class="buttons d-inline-block">
-                                    <a id="download" class="btn btn-sm btn-outline-light d-inline-block" href="${imageURL}" download>Download</a>
+                                    <a id="download" class="btn btn-sm btn-outline-light d-inline-block" href="${fetchedImageURL}" download>Download</a>
                                     <br>
-                                    <a id="view-raw" class="btn btn-sm btn-outline-light d-inline-block mt-2" href="${imageURL}" target="_blank">View Raw</a>
+                                    <a id="view-raw" class="btn btn-sm btn-outline-light d-inline-block mt-2" href="${fetchedImageURL}" target="_blank">View Raw</a>
                                 </div>
                             </div>
                         </div>
