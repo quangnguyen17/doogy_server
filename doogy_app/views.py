@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect, HttpResponse
 from login_n_registration_app.models import *
 from .models import *
 
+# PAGES (Home, View, Dashboard)
+# Home Page
+
 
 def index(request):
     context = {
@@ -16,10 +19,25 @@ def index(request):
 
     return render(request, 'index.html', context)
 
+# View Page
 
-def logout(request):
-    request.session['user_id'] = None
-    return redirect("/")
+
+def view(request):
+    context = {
+        'url': request.GET['image_url'],
+        'user_id': None,
+        'user': None
+    }
+
+    if user_logged_in(request):
+        user = User.objects.all().get(id=request.session['user_id'])
+        context['liked_urls'] = user.liked_urls
+        context['user_id'] = user.id
+        context['user'] = user
+
+    return render(request, 'view.html', context)
+
+# Dashboard Page
 
 
 def dashboard(request):
@@ -33,6 +51,11 @@ def dashboard(request):
 
         return render(request, 'dashboard.html', context)
 
+    return redirect("/")
+
+
+def logout(request):
+    request.session['user_id'] = None
     return redirect("/")
 
 
@@ -62,17 +85,6 @@ def user_logged_in(request):
     return 'user_id' in request.session and request.session['user_id'] != None
 
 
-def view(request):
-    context = {
-        'url': request.GET['image_url'],
-        'user_id': None,
-        'user': None
-    }
-
-    if user_logged_in(request):
-        user = User.objects.all().get(id=request.session['user_id'])
-        context['liked_urls'] = user.liked_urls
-        context['user_id'] = user.id
-        context['user'] = user
-
-    return render(request, 'view.html', context)
+def update_dark_mode(request):
+    request.session['dark_mode'] = request.GET['dark']
+    return HttpResponse("success")

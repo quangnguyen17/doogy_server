@@ -27,9 +27,9 @@
     </style>
     <script>
         user_id = "{{ user_id }}";
-        importedQuotes = [];
-        liked_urls = [];
         heartImage = "{% static '/assets/heart.png' %}";
+        importedQuotes = "";
+        liked_urls = "";
     </script>
     <script src="{% static 'script.js' %}"></script>
     <title>Doogy! - View</title>
@@ -48,8 +48,8 @@
         <div class="row justify-content-center align-items-start">
             <div class="col-3 text-center">
                 <div class="jumbotron bg-light">
-                    <img id="profile-image" class="bg-light rounded-circle mb-4" src="{% static 'assets/waldo.jpg' %}"
-                        alt="">
+                    <img width="100" height="100" class="bg-secondary p-3 rounded-circle mb-4"
+                        src="{% static 'assets/doogy.png' %}" alt="">
                     <h2 class="font-weight-bold mb-2">{{ user.name }}</h2>
                     <p class="mb-1 text-secondary">{{ user.email }}</p>
                     <p class="m-0 text-secondary">Joined Doogy! on {{ user.created_at.date }}</p>
@@ -68,7 +68,7 @@
                 <div class="row">
                     {% for url in liked_urls %}
                     <div class="col-4 text-center p-1">
-                        <div class="image-box" style="background-image: url({{ url }});">
+                        <div class="image-box" @click.self="parent" style="background-image: url({{ url }});">
                             <div class="text-box text-center text-light">
                                 <div class="content-align-bottom text-center align-items-end">
                                     <button id="like" class="btn like-section p-0 mt-auto"><img class="p-0" id="heart"
@@ -88,8 +88,19 @@
                     <script>
                         $('.col-4 #like').on('click', function (event) {
                             like(event, function (response) {
-                                $(event.target).parent().parent().parent().parent().parent().remove();
+                                element = $(event.target).parent().parent().parent().parent().parent();
+                                $(element).fadeOut(function () {
+                                    $(element).remove();
+                                });
                             });
+                        });
+
+                        $('.col-4 .image-box').on('click', function (event) {
+                            if (event.target.id === "heart") {
+                                stopBubbling(event);
+                            } else {
+                                view(event);
+                            }
                         });
                     </script>
                 </div>
@@ -115,5 +126,12 @@
         </div>
     </footer>
 </body>
+<script>
+    $(document).ready(function () {
+        dark = "{{ request.session.dark_mode }}" === "true";
+        $(`#${dark ? 'light' : 'dark'}-mode`).addClass('active');
+        applyDark(dark);
+    })
+</script>
 
 </html>

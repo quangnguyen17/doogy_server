@@ -61,11 +61,7 @@ function handleLike(button, imageURL, callBack) {
 }
 
 function getURL() {
-    if (breed.length > 0) {
-        return `https://dog.ceo/api/breed/${breed}/images/random/16`;
-    }
-
-    return `https://dog.ceo/api/breeds/image/random/16`;
+    return (breed.length > 0) ? `https://dog.ceo/api/breed/${breed}/images/random/16` : `https://dog.ceo/api/breeds/image/random/16`;
 }
 
 function fetchImages() {
@@ -135,7 +131,7 @@ function renderCarousel() {
 }
 
 function updateUI(darkMode) {
-    if (!darkMode) {
+    if (darkMode) {
         $('body').css('background-color', 'rgb(10, 10, 10)');
         $('nav').addClass('bg-dark navbar-dark');
         $('nav #search-bar').addClass('bg-dark text-light');
@@ -176,31 +172,40 @@ function updateUI(darkMode) {
     }
 }
 
-function addDarkModeSupport() {
+function activateDarkMode() {
     $('#light-mode').click(function () {
-        darkModeOn = false;
         $(this).addClass('active');
         $('#dark-mode').removeClass('active');
-        updateUI(false);
+        applyDark(true);
     });
 
     $('#dark-mode').click(function () {
-        darkModeOn = true;
         $(this).addClass('active');
         $('#light-mode').removeClass('active');
-        updateUI(true);
+        applyDark(false);
+    });
+}
+
+function applyDark(darkEnabled) {
+    $.ajax({
+        type: "GET",
+        url: "/update_dark_mode",
+        data: { 'dark': darkEnabled },
+        success: function (response) {
+            updateUI(darkEnabled);
+        }
     });
 }
 
 function getAbsoluteURL(url) {
-    temp = 0;
+    start = 0;
     URL = "";
 
     for (const index in url) {
         if (url[index] === `"`) {
-            temp = (temp > 0) ? 0 : 1
+            start = (start > 0) ? 0 : 1
         } else {
-            if (temp > 0) {
+            if (start > 0) {
                 URL += url[index];
             }
         }
@@ -263,8 +268,7 @@ function fileExt(str) {
 }
 
 $(document).ready(function () {
-    $('[data-toggle="popover"]').popover();
-    addDarkModeSupport();
+    activateDarkMode();
     fetchImages();
     getCarouselImages();
     getBreeds();

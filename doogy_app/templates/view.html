@@ -74,7 +74,7 @@
         <p class="ml-auto mr-4 my-0">{{ user.name }}</p>
         <a href="/logout" class="btn btn-warning px-3">Log Out</a>
         {% else %}
-        <a href="/" class="btn btn-light px-3 ml-3 mr-2">Home</a>
+        <a id="favorites" href="/" class="btn btn-light px-3 ml-3 mr-2">Home</a>
         <a class="nav-link ml-auto text-secondary px-2 mr-4" href="/welcome">Sign up to save your favorite photos.</a>
         <a href="/welcome" class="btn btn-secondary px-3">Sign In</a>
         {% endif %}
@@ -99,7 +99,7 @@
                             {% endif %}
                         </button>
                     </li>
-                    <li class="mb-3">
+                    <li class="mb-5">
                         <a id="download" class="btn btn-lg btn-light d-inline-block breed-btn" href="{{ url }}"
                             download>Download</a>
                         <a id="viewRaw" class="btn btn-lg btn-light d-inline-block breed-btn" href="{{ url }}"
@@ -108,6 +108,12 @@
                     </li>
                     <li class="ml-1">
                         <p>&#60;Image URL&gt;<br> <a class="text-secondary" href="{{ url }}">{{ url }}</a></p>
+                    </li>
+                    <li class="ml-1">
+                        <p>&#8594; Share with your friends on: (Feature coming soon!)</p>
+                        <a class="mr-2" href="#"><img width="56" height="56" src="{% static '/assets/facebook.png' %}"
+                                alt=""></a>
+                        <a href="#"><img width="56" height="56" src="{% static '/assets/twitter.png' %}" alt=""></a>
                     </li>
                 </ul>
             </div>
@@ -123,7 +129,7 @@
                 <li class="list-inline-item">
                     <div class="btn-group d-inline-block" role="group" aria-label="Basic example">
                         <button id="light-mode" type="button" class="btn btn-light btn-color">ON</button>
-                        <button id="dark-mode" type="button" class="btn btn-light btn-color active">OFF</button>
+                        <button id="dark-mode" type="button" class="btn btn-light btn-color">OFF</button>
                     </div>
                 </li>
             </ul>
@@ -132,15 +138,17 @@
                         class="nav-link text-secondary d-inline-block">View project on GitHub</a></span></p>
         </div>
     </footer>
-    <script>
-        $('#onLike').on('click', function (event) {
-            if (user_id.length > 0) {
-                handleLike($(event.target), "{{ url }}");
-            } else {
-                window.location.replace("/welcome");
-            }
-        });
-    </script>
 </body>
+<script>
+    $('#onLike').on('click', function (event) {
+        (user_id !== "None") ? handleLike($(event.target), "{{ url }}") : window.location.replace("/welcome");
+    });
+
+    $(document).ready(function () {
+        dark = "{{ request.session.dark_mode }}" === "true";
+        $(`#${dark ? 'light' : 'dark'}-mode`).addClass('active');
+        applyDark(dark);
+    })
+</script>
 
 </html>

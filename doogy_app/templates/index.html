@@ -40,7 +40,7 @@
         <a id="collection" href="/dashboard" class="btn btn-light px-3">My Wall</a>
         <form class="form-inline ml-3 w-25">
             <input id="search-bar" class="form-control mr-sm-2 bg-light border-0 w-100"
-                placeholder="Search... (Feature coming soon)" type="search" aria-label="Search">
+                placeholder="Search... (Feature coming soon!)" type="search" aria-label="Search">
         </form>
         <p class="ml-auto mr-4 my-0">{{ user.name }}</p>
         <a href="/logout" class="btn btn-warning px-3">Log Out</a>
@@ -49,7 +49,7 @@
         <a id="collection" href="/welcome" class="btn btn-light px-3">My Wall</a>
         <form class="form-inline ml-3 w-25">
             <input id="search-bar" class="form-control mr-sm-2 bg-light border-0 w-100"
-                placeholder="Search... (Feature coming soon)" type="search" aria-label="Search">
+                placeholder="Search... (Feature coming soon!)" type="search" aria-label="Search">
         </form>
         <a class="nav-link ml-auto text-secondary px-2 mr-4" href="/welcome">Sign up to save your favorite photos.</a>
         <a href="/welcome" class="btn btn-secondary px-3">Sign In</a>
@@ -69,12 +69,12 @@
     </div>
     <div class="container-fluid px-5 py-5">
         <div class="row justify-content-center mb-4 text-center">
-            <table class="w-75">
+            <table class="w-100">
                 <tr class="text-center">
                     <td>
                         <h3 class="mb-0">Get by Breed:</h3>
                     </td>
-                    <td class="pl-0 pr-5 w-50">
+                    <td class="w-50">
                         <select name="value" class="form-control bg-light px-2 my-0 border-0 rounded-pill" id="select">
                             <option value="random">#random</option>
                         </select>
@@ -103,7 +103,7 @@
                 <li class="list-inline-item">
                     <div class="btn-group d-inline-block" role="group" aria-label="Basic example">
                         <button id="light-mode" type="button" class="btn btn-light btn-color">ON</button>
-                        <button id="dark-mode" type="button" class="btn btn-light btn-color active">OFF</button>
+                        <button id="dark-mode" type="button" class="btn btn-light btn-color">OFF</button>
                     </div>
                 </li>
             </ul>
@@ -113,5 +113,12 @@
         </div>
     </footer>
 </body>
+<script>
+    $(document).ready(function () {
+        dark = "{{ request.session.dark_mode }}" === "true";
+        $(`#${dark ? 'light' : 'dark'}-mode`).addClass('active');
+        applyDark(dark);
+    })
+</script>
 
 </html>
