@@ -72,15 +72,25 @@ function fetchImages() {
             for (const index in response.message) {
                 fetchedImageURL = response.message[index];
                 heartLikedImage = (liked_urls.includes(fetchedImageURL)) ? heartImageFilled : heartImage;
+<<<<<<< HEAD
                 code = `<div class="col-3 p-1 text-center">
+=======
+                code = `<div class="col-3 p-0 text-center">
+>>>>>>> 59e15b45c796f02a6bc89dadc0b7ab75102c5657
                     <div class="image-box" @click.self="parent" style="background-image: url(${fetchedImageURL});">
                         <div class="text-box text-center text-light">
                             <div class="content-align-bottom text-center align-items-end">
                                 <button id="like" class="btn like-section p-0 mt-auto"><img class="p-0" id="heart" src="${heartLikedImage}" alt=""></button>
+<<<<<<< HEAD
                                 <div class="buttons d-inline-block">
                                     <a id="download" class="btn btn-sm btn-outline-light d-inline-block" href="${fetchedImageURL}" download>Download</a>
                                     <br>
                                     <a id="view-raw" class="btn btn-sm btn-outline-light d-inline-block mt-2" href="${fetchedImageURL}" target="_blank">View Raw</a>
+=======
+                                <div class="buttons d-inline-block text-right">
+                                    <a id="view-raw" class="btn btn-sm btn-outline-light rounded-0 d-inline-block" href="${fetchedImageURL}" target="_blank">View Raw</a><br>
+                                    <a id="download" class="btn btn-sm btn-outline-light rounded-0 d-inline-block mt-1" href="${fetchedImageURL}" download>Download</a>
+>>>>>>> 59e15b45c796f02a6bc89dadc0b7ab75102c5657
                                 </div>
                             </div>
                         </div>
@@ -139,7 +149,11 @@ function updateUI(darkMode) {
         $('nav h3, nav p').css('color', 'white');
         $('footer').addClass('bg-dark');
         $('footer h4').addClass('text-light');
+<<<<<<< HEAD
         $('h3').addClass('text-light');
+=======
+        $('.first-row .list-inline').addClass('text-light');
+>>>>>>> 59e15b45c796f02a6bc89dadc0b7ab75102c5657
         $('#more-doogy').addClass('btn-dark');
         $('.breed-btn').addClass('btn-dark');
         $('#show-breed').addClass('text-light');
@@ -158,7 +172,11 @@ function updateUI(darkMode) {
         $('nav h3, nav p').css('color', 'black');
         $('footer').removeClass('bg-dark');
         $('footer h4').removeClass('text-light');
+<<<<<<< HEAD
         $('h3').removeClass('text-light');
+=======
+        $('.first-row .list-inline').addClass('text-light');
+>>>>>>> 59e15b45c796f02a6bc89dadc0b7ab75102c5657
         $('#more-doogy').removeClass('btn-dark');
         $('.breed-btn').removeClass('btn-dark');
         $('#show-breed').removeClass('text-light');

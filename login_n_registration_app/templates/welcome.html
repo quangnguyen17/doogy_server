@@ -66,13 +66,13 @@
                     <form action="login" method="POST" class="w-75 text-center mx-auto">
                         {% csrf_token %}
                         <input name="email" type="email"
-                            class="form-control bg-dark border border-secondary text-light p-4 mb-3" placeholder="Email"
-                            required>
+                            class="form-control bg-dark border border-secondary rounded-0 text-light p-4 mb-2"
+                            placeholder="Email" required>
                         <input name="password" type="password"
-                            class="form-control bg-dark border-secondary text-light p-4" placeholder="Password"
-                            required>
-                        <input type="submit" class="btn btn-secondary d-block px-4 mt-5 mx-auto" name="login"
-                            value="Sign In">
+                            class="form-control bg-dark border-secondary rounded-0 text-light p-4"
+                            placeholder="Password" required>
+                        <input type="submit" class="btn btn-secondary d-block rounded-0 py-2 px-4 mt-5 mx-auto"
+                            name="login" value="Sign In">
                     </form>
                     <p class="mt-5 mx-5 px-5">“Such short little lives our pets have to spend with us, and they spend
                         most of it waiting for us to come home each day.”</p>
@@ -94,14 +94,16 @@
                     <h1 class="mb-5 font-weight-bold">Welcome! Sign Up</h1>
                     <form action="register" method="POST" class="w-75 text-center mx-auto">
                         {% csrf_token %}
-                        <input name="name" type="text" class="form-control p-4 mb-3" placeholder="Name" required>
-                        <input name="email" type="email" class="form-control p-4 mb-3" placeholder="Email" required>
-                        <input name="password" type="password" class="form-control p-4 mb-3" placeholder="Password"
+                        <input name="name" type="text" class="form-control p-4 rounded-0 mb-2" placeholder="Name"
                             required>
-                        <input name="confirm_pw" type="password" class="form-control p-4" placeholder="Confirm Password"
+                        <input name="email" type="email" class="form-control p-4 rounded-0 mb-2" placeholder="Email"
                             required>
-                        <input type="submit" class="btn btn-warning d-block px-4 mt-5 mx-auto" name="register"
-                            value="Sign Up">
+                        <input name="password" type="password" class="form-control p-4 rounded-0 mb-2"
+                            placeholder="Password" required>
+                        <input name="confirm_pw" type="password" class="form-control p-4 rounded-0 p-1"
+                            placeholder="Confirm Password" required>
+                        <input type="submit" class="btn btn-warning d-block rounded-0 py-2 px-4 mt-5 mx-auto"
+                            name="register" value="Sign Up">
                     </form>
                 </div>
                 <p id="just-text" class="m-0 text-secondary">&copy;QuangNguyen 2020 - Doogy!<span><a

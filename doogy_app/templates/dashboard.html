@@ -19,12 +19,6 @@
     <link href="https://fonts.googleapis.com/css?family=Questrial&display=swap" rel="stylesheet">
     {% load static %}
     <link rel="stylesheet" href="{% static 'styles.css' %}">
-    <style>
-        #profile-image {
-            height: 150px;
-            width: 150px;
-        }
-    </style>
     <script>
         user_id = "{{ user_id }}";
         heartImage = "{% static '/assets/heart.png' %}";
@@ -37,29 +31,34 @@
 
 <body>
     <nav class="navbar navbar-expand-md navbar-light bg-trans-light px-5">
-        <h3 class="font-weight-bold mb-1">Doogy!</h3>
-        <p class="m-0 mt-1 ml-2">(Beta)</p>
-        <a id="collection" href="/" class="btn btn-light px-3 ml-3">Home</a>
-        <p class="ml-auto mr-3 my-0">{{ user.name }}</p>
-        <a href="/logout" class="btn btn-warning px-3">Log Out</a>
+        <h3 class="font-weight-bold m-0">Doogy!</h3>
+        <button class="navbar-toggler rounded-0" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a id="collection" href="/" class="btn btn-light px-3 ml-3 rounded-0">Home</a>
+            <p class="ml-auto mr-3 my-0">{{ user.name }}</p>
+            <a href="/logout" class="btn btn-warning rounded-0 px-3">Log Out</a>
+        </div>
     </nav>
     <div class="container-fluid p-5">
         <div class="row" style="height: 56px;"></div>
-        <div class="row justify-content-center align-items-start">
-            <div class="col-3 text-center">
-                <div class="jumbotron bg-light">
-                    <img width="100" height="100" class="bg-secondary p-3 rounded-circle mb-4"
-                        src="{% static 'assets/doogy.png' %}" alt="">
-                    <h2 class="font-weight-bold mb-2">{{ user.name }}</h2>
+        <div class="row m-0 p-0 justify-content-center align-items-start">
+            <div class="col-md-3 col-sm-12 p-0 m-0 text-center p-4">
+                <div class="jumbotron px-2 py-5 bg-light rounded-0">
+                    <img id="profile-image" width="150" height="150" class="rounded-circle mb-4">
+                    <h3 class="font-weight-bold mb-2">{{ user.name }}</h3>
                     <p class="mb-1 text-secondary">{{ user.email }}</p>
                     <p class="m-0 text-secondary">Joined Doogy! on {{ user.created_at.date }}</p>
                 </div>
-                <h2 class="font-weight-bold d-block w-100">My Wall</h2>
-                <p class="text-secondary">(Feature coming soon!)</p>
+                <h3 class="font-weight-bold m-0 d-block w-100">My Wall</h3>
+                <p class="text-secondary">(Coming Soon.)</p>
             </div>
-            <div class="col-9 pl-5">
-                <div class="row ml-1 mb-3">
-                    <h3 class="d-block w-100 font-weight-bold">Favorites</h3>
+            <div class="col-md-9 col-sm-12 p-3">
+                <div class="row">
+                    <h3 class="d-block w-100 font-weight-bold mb-3"> <span>My Favorites</h3>
                     {% if liked_urls|length < 1 %}
                     <p class="text-secondary">You don't have any favorites. Navigate back to home page to explore more!
                     </p>
@@ -67,56 +66,39 @@
                 </div>
                 <div class="row">
                     {% for url in liked_urls %}
-                    <div class="col-4 text-center p-1">
+                    <div class="col-lg-4 col-md-6 col-sm-12 p-0 text-center">
                         <div class="image-box" @click.self="parent" style="background-image: url({{ url }});">
                             <div class="text-box text-center text-light">
                                 <div class="content-align-bottom text-center align-items-end">
                                     <button id="like" class="btn like-section p-0 mt-auto"><img class="p-0" id="heart"
                                             src="{% static '/assets/heart-filled.png' %}" alt=""></button>
-                                    <div class="buttons d-inline-block">
-                                        <a id="download" class="btn btn-sm btn-outline-light d-inline-block"
+                                    <div class="buttons text-right d-inline-block">
+                                        <a id="viewRaw" class="btn btn-sm btn-outline-light rounded-0 d-inline-block"
+                                            href="{{ url }}" target="_blank">View Raw</a><br>
+                                        <a id="download"
+                                            class="btn btn-sm btn-outline-light rounded-0 d-inline-block mt-1"
                                             href="{{ url }}" download>Download</a>
-                                        <br>
-                                        <a id="viewRaw" class="btn btn-sm btn-outline-light d-inline-block mt-2"
-                                            href="{{ url }}" target="_blank">View Raw</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     {% endfor %}
-                    <script>
-                        $('.col-4 #like').on('click', function (event) {
-                            like(event, function (response) {
-                                element = $(event.target).parent().parent().parent().parent().parent();
-                                $(element).fadeOut(function () {
-                                    $(element).remove();
-                                });
-                            });
-                        });
-
-                        $('.col-4 .image-box').on('click', function (event) {
-                            if (event.target.id === "heart") {
-                                stopBubbling(event);
-                            } else {
-                                view(event);
-                            }
-                        });
-                    </script>
                 </div>
             </div>
         </div>
     </div>
     <footer class="text-center mt-3 py-3 bg-light">
-        <div class="div my-auto">
+        <div class="my-auto">
             <ul class="list-inline m-0">
                 <li class="list-inline-item">
                     <h4 class="d-inline-block align-middle mt-2">Dark Mode:</h4>
                 </li>
                 <li class="list-inline-item">
                     <div class="btn-group d-inline-block" role="group" aria-label="Basic example">
-                        <button id="light-mode" type="button" class="btn btn-light btn-color">ON</button>
-                        <button id="dark-mode" type="button" class="btn btn-light btn-color active">OFF</button>
+                        <button id="light-mode" type="button" class="btn btn-light btn-color rounded-0">ON</button>
+                        <button id="dark-mode" type="button"
+                            class="btn btn-light btn-color active rounded-0">OFF</button>
                     </div>
                 </li>
             </ul>
@@ -131,6 +113,27 @@
         dark = "{{ request.session.dark_mode }}" === "true";
         $(`#${dark ? 'light' : 'dark'}-mode`).addClass('active');
         applyDark(dark);
+
+        $('.row #like').on('click', function (event) {
+            like(event, function (response) {
+                element = $(event.target).parent().parent().parent().parent().parent();
+                $(element).fadeOut(function () {
+                    $(element).remove();
+                });
+            });
+        });
+
+        $('.row .image-box').on('click', function (event) {
+            (event.target.id === "heart") ? stopBubbling(event) : view(event);
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "https://dog.ceo/api/breeds/image/random",
+            success: function (response) {
+                $('#profile-image').attr('src', response.message);
+            }
+        });
     })
 </script>
 

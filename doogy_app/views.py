@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, HttpResponse
 from login_n_registration_app.models import *
 from .models import *
 
-# PAGES (Home, View, Dashboard)
-# Home Page
+# PAGES (Home, Dashboard, View)
+# HOME
 
 
 def index(request):
@@ -19,7 +19,7 @@ def index(request):
 
     return render(request, 'index.html', context)
 
-# View Page
+# VIEW
 
 
 def view(request):
@@ -37,12 +37,13 @@ def view(request):
 
     return render(request, 'view.html', context)
 
-# Dashboard Page
+# DASHBOARD
 
 
 def dashboard(request):
     if user_logged_in(request):
         user = User.objects.all().get(id=request.session['user_id'])
+
         context = {
             'liked_urls': user.valid_urls(),
             'user_id': user.id,
