@@ -2,8 +2,6 @@
     font-family: 'Questrial', sans-serif;
 }
 
-<<<<<<< HEAD
-=======
 img {
     object-fit: cover;
 }
@@ -12,7 +10,6 @@ div {
     overflow-wrap: break-word;
 }
 
->>>>>>> 59e15b45c796f02a6bc89dadc0b7ab75102c5657
 .navbar {
     position: fixed;
     width: 100%;
@@ -53,11 +50,7 @@ div {
 }
 
 .gradient-layer {
-<<<<<<< HEAD
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.875));
-=======
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), black);
->>>>>>> 59e15b45c796f02a6bc89dadc0b7ab75102c5657
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -70,29 +63,17 @@ div {
 }
 
 .bg-trans-light {
-<<<<<<< HEAD
-    background-color: rgb(250, 250, 250);
-}
-
-.image-box {
-    background-color: rgb(225, 225, 225);
-=======
     background-color: white;
 }
 
 .image-box {
     background-color: white;
->>>>>>> 59e15b45c796f02a6bc89dadc0b7ab75102c5657
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     width: 100%;
     padding-top: 100%;
     position: relative;
-<<<<<<< HEAD
-    border-radius: 24px;
-=======
->>>>>>> 59e15b45c796f02a6bc89dadc0b7ab75102c5657
 }
 
 .footer {
@@ -103,11 +84,7 @@ div {
 }
 
 .text-box {
-<<<<<<< HEAD
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgb(0, 0, 0));
-=======
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), black);
->>>>>>> 59e15b45c796f02a6bc89dadc0b7ab75102c5657
     width: 100%;
     height: 100%;
     position: absolute;
@@ -115,10 +92,6 @@ div {
     left: 0;
     right: 0;
     bottom: 0;
-<<<<<<< HEAD
-    border-radius: 24px;
-=======
->>>>>>> 59e15b45c796f02a6bc89dadc0b7ab75102c5657
     opacity: 0;
     transition: opacity 0.25s;
 }
@@ -136,27 +109,13 @@ div {
 
 .like-section {
     position: absolute;
-<<<<<<< HEAD
-    left: 21px;
-    bottom: 20px;
-=======
     left: 16px;
     bottom: 16px;
->>>>>>> 59e15b45c796f02a6bc89dadc0b7ab75102c5657
     vertical-align: bottom;
 }
 
 .buttons {
     position: absolute;
-<<<<<<< HEAD
-    right: 24px;
-    bottom: 22px;
-}
-
-#heart {
-    width: 40px;
-    height: 40px;
-=======
     right: 16px;
     bottom: 16px;
 }
@@ -164,17 +123,14 @@ div {
 #heart {
     width: 44px;
     height: 44px;
->>>>>>> 59e15b45c796f02a6bc89dadc0b7ab75102c5657
     object-fit: contain;
     filter: invert(100%);
     -webkit-filter: invert(100%);
 }
 
-.color-inverter {
+3qq .color-inverter {
     filter: invert(100%);
     -webkit-filter: invert(100%);
-<<<<<<< HEAD
-=======
 }
 
 select:not([multiple]) {
@@ -189,5 +145,4 @@ select:not([multiple]) {
 
 #select {
     border-radius: 0;
->>>>>>> 59e15b45c796f02a6bc89dadc0b7ab75102c5657
 }

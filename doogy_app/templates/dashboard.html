@@ -48,17 +48,17 @@
         <div class="row m-0 p-0 justify-content-center align-items-start">
             <div class="col-md-3 col-sm-12 p-0 m-0 text-center p-4">
                 <div class="jumbotron px-2 py-5 bg-light rounded-0">
-                    <img id="profile-image" width="150" height="150" class="rounded-circle mb-4">
-                    <h3 class="font-weight-bold mb-2">{{ user.name }}</h3>
+                    <img id="profile-image" width="150" height="150" class="rounded-circle mb-4 bg-light">
+                    <h4 class="font-weight-bold mb-2">{{ user.name }}</h4>
                     <p class="mb-1 text-secondary">{{ user.email }}</p>
                     <p class="m-0 text-secondary">Joined Doogy! on {{ user.created_at.date }}</p>
                 </div>
-                <h3 class="font-weight-bold m-0 d-block w-100">My Wall</h3>
+                <h4 class="font-weight-bold m-0 d-block w-100">My Wall</h4>
                 <p class="text-secondary">(Coming Soon.)</p>
             </div>
             <div class="col-md-9 col-sm-12 p-3">
                 <div class="row">
-                    <h3 class="d-block w-100 font-weight-bold mb-3"> <span>My Favorites</h3>
+                    <h4 class="d-block w-100 font-weight-bold mb-3"> <span>My Favorites</h4>
                     {% if liked_urls|length < 1 %}
                     <p class="text-secondary">You don't have any favorites. Navigate back to home page to explore more!
                     </p>

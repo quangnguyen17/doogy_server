@@ -1,5 +1,6 @@
 
 breed = ""
+imagesCount = 0
 breeds = []
 bannerUrls = []
 quotes = []
@@ -72,15 +73,11 @@ function fetchImages() {
             for (const index in response.message) {
                 fetchedImageURL = response.message[index];
                 heartLikedImage = (liked_urls.includes(fetchedImageURL)) ? heartImageFilled : heartImage;
-                code = `<div class="col-3 p-0 text-center">
+                code = `<div class="col-lg-3 col-md-6 col-sm-12 p-0 text-center">
                     <div class="image-box" @click.self="parent" style="background-image: url(${fetchedImageURL});">
                         <div class="text-box text-center text-light">
                             <div class="content-align-bottom text-center align-items-end">
                                 <button id="like" class="btn like-section p-0 mt-auto"><img class="p-0" id="heart" src="${heartLikedImage}" alt=""></button>
-                                <div class="buttons d-inline-block">
-                                    <a id="download" class="btn btn-sm btn-outline-light d-inline-block" href="${fetchedImageURL}" download>Download</a>
-                                    <br>
-                                    <a id="view-raw" class="btn btn-sm btn-outline-light d-inline-block mt-2" href="${fetchedImageURL}" target="_blank">View Raw</a>
                                 <div class="buttons d-inline-block text-right">
                                     <a id="view-raw" class="btn btn-sm btn-outline-light rounded-0 d-inline-block" href="${fetchedImageURL}" target="_blank">View Raw</a><br>
                                     <a id="download" class="btn btn-sm btn-outline-light rounded-0 d-inline-block mt-1" href="${fetchedImageURL}" download>Download</a>
@@ -90,6 +87,7 @@ function fetchImages() {
                     </div>
                 </div>`;
 
+                imagesCount++;
                 $('.second-row').append(code);
             }
 
@@ -105,6 +103,9 @@ function fetchImages() {
                     view(event);
                 }
             });
+
+            breedTxt = (breed.length < 1) ? 'random' : `keyword '${breed}'`;
+            $('#images-count-txt').text(`(About ${imagesCount} results shown for ${breedTxt}.)`);
         }
     });
 }
@@ -150,6 +151,7 @@ function updateUI(darkMode) {
         $('.btn-color').addClass('btn-dark');
         $('.jumbotron').addClass('bg-dark');
         $('.jumbotron h2').addClass('text-light');
+        $('h4').addClass('text-light');
         $('.col-3 h2').addClass('text-light');
         $('#heart-img').css('filter', 'invert(100%)');
         $('li p').addClass('text-light');
@@ -161,7 +163,7 @@ function updateUI(darkMode) {
         $('nav h3, nav p').css('color', 'black');
         $('footer').removeClass('bg-dark');
         $('footer h4').removeClass('text-light');
-        $('.first-row .list-inline').addClass('text-light');
+        $('.first-row .list-inline').removeClass('text-light');
         $('#more-doogy').removeClass('btn-dark');
         $('.breed-btn').removeClass('btn-dark');
         $('#show-breed').removeClass('text-light');
@@ -169,6 +171,7 @@ function updateUI(darkMode) {
         $('.btn-color').removeClass('btn-dark');
         $('.jumbotron').removeClass('bg-dark');
         $('.jumbotron h2').removeClass('text-light');
+        $('h4').removeClass('text-light');
         $('.col-3 h2').removeClass('text-light');
         $('#heart-img').css('filter', 'invert(0%)');
         $('li p').removeClass('text-light');
@@ -206,7 +209,7 @@ function getAbsoluteURL(url) {
 
     for (const index in url) {
         if (url[index] === `"`) {
-            start = (start > 0) ? 0 : 1
+            start = (start > 0) ? 0 : 1;
         } else {
             if (start > 0) {
                 URL += url[index];
@@ -230,8 +233,9 @@ function getBreeds() {
             $('#select').change(function (e) {
                 breed = e.target.value;
                 $('#show-breed').text(`#${breed}`);
-                breed = (new String(breed).valueOf() == new String("random").valueOf()) ? "" : `${breed}`;
+                breed = (breed === 'random') ? "" : `${breed}`;
                 $('.second-row').html("");
+                imagesCount = 0;
                 fetchImages();
             });
         }
