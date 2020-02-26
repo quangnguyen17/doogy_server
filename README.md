@@ -1,18 +1,18 @@
 # Doogy!
-Welcome to `doogy_server`.
-"A missing item finder app that will help users find their glasses, keys, wallet, socks and other items that they put somewhere and then forget where they actually placed them. One way to do this is taking a pic with your phone each time you place such an item so that you can look at the pic if you forget about it later."
+Welcome to `doogy_server`
+
+"A place where dog enthusiasts can be who they are and find thousands of dog pictures being fetched from a public API in which hosts one of the biggest collections of open source dog pictures."
 
 ## Links
 
-- [Live Site](https://lost.dojoafterdark.com)
-- [Repo](https://github.com/quangnguyen17/lost-and-found)
-- [Project Board](https://github.com/users/quangnguyen17/projects/1)
-- [DojoAfterDark](https://dojoafterdark.com)
+- [Live Site](http://13.52.102.43/)
+- [Repo](https://github.com/quangnguyen17/doogy_server)
+- [Dog API](https://dog.ceo/dog-api/)
 - Deployed using GitHub and [AWS](https://aws.amazon.com/).
 
 ## How to run the project locally
 
-- Create a new project directory and clone repo to your computer: `git clone https://github.com/quangnguyen17/lost-and-found.git`
+- Create a new project directory and clone repo to your computer: `git clone https://github.com/quangnguyen17/doogy_server.git`
 - `cd` into repo folder
 - `python3 -m venv venv` to create a virtual environment
 - `pip install -r requirements.txt` to install all the requirements to run project.
