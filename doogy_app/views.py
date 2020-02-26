@@ -23,14 +23,19 @@ def index(request):
 
 
 def view(request):
+    url = request.GET['image_url']
+    breed = get_breed(url)
+
     context = {
-        'url': request.GET['image_url'],
+        'url': url,
+        'breed': breed,
         'user_id': None,
         'user': None
     }
 
     if user_logged_in(request):
         user = User.objects.all().get(id=request.session['user_id'])
+
         context['liked_urls'] = user.liked_urls
         context['user_id'] = user.id
         context['user'] = user
@@ -89,3 +94,15 @@ def user_logged_in(request):
 def update_dark_mode(request):
     request.session['dark_mode'] = request.GET['dark']
     return HttpResponse("success")
+
+
+def get_breed(str):
+    base_url = 'https://images.dog.ceo/breeds/'
+    breed_str = ''
+
+    for i in range(len(base_url), len(str)):
+        if (str[i] == "/"):
+            break
+        breed_str += str[i]
+
+    return breed_str

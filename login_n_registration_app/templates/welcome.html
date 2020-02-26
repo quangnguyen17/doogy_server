@@ -22,6 +22,13 @@
             font-family: 'Questrial', sans-serif;
         }
 
+        .align-items-center {
+            -ms-flex-align: center !important;
+            align-items: center !important;
+            display: flex;
+            justify-content: center;
+        }
+
         .text-box {
             position: absolute;
             top: 20px;
@@ -46,8 +53,8 @@
 
 <body>
     <div class="container-fluid">
-        <div class="row h-full">
-            <div class="col-4 bg-dark text-light text-center p-0">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-12 h-full p-0 bg-dark text-light text-center align-items-center">
                 {% if messages %}
                 <ul class="messages m-5 position-absolute text-center text-danger list-inline">
                     {% for message in messages %}
@@ -79,7 +86,7 @@
                     <h6 class="font-weight-light">- John Grogan -</h6>
                 </div>
             </div>
-            <div class="col-8 text-center p-0">
+            <div class="col-lg-8 col-md-6 col-sm-12 h-full p-0 text-center align-items-center">
                 {% if messages %}
                 <ul class="messages m-0 text-center text-danger list-inline">
                     {% for message in messages %}
@@ -87,7 +94,7 @@
                     {% endfor %}
                 </ul>
                 {% endif %}
-                <div class="sign-in-form py-5 my-5">
+                <div class="sign-in-form">
                     <p class="mx-5 px-5">“There is no faith which has never yet been broken, except that of a truly
                         faithful dog” </p>
                     <h6 class="mb-5 font-weight-light">- Konrad Lorenz -</h6>

@@ -39,33 +39,27 @@
         html,
         body {
             height: 100%;
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), black),
+            url('{{ url }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
-        .container {
-            min-height: calc(100% - 116px);
-            overflow: auto;
-        }
-
-        .modified {
-            width: 100%;
-            padding-top: 100%;
-            position: relative;
+        .bottom-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
         }
 
         .text-box:hover {
             opacity: 0;
         }
 
-        #heart-img {
-            height: 62.5px;
-            width: 62.5px;
-            object-fit: contain;
-        }
-
-        .footer {
-            position: relative;
-            padding-top: -116px;
-            clear: both;
+        .image-sized {
+            height: 100px;
+            width: 100px;
         }
     </style>
 </head>
@@ -92,64 +86,33 @@
             {% endif %}
         </div>
     </nav>
-    <div class="container">
-        <div class="row" style="height: 56px;"></div>
-        <div class="row m-0 px-2 py-5 align-items-center">
-            <div class="col-md-6 col-sm-12">
-                <div class="image-box modified" style="background-image: url({{ url }});">
-                    <div class="text-box text-center text-light"></div>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12">
-                <ul class="list-inline p-3 m-0">
-                    <li class="my-4">
-                        <button id="onLike" class="btn p-0 mt-auto">
-                            {% if url in liked_urls %}
-                            <img id="heart-img" class="p-0" src="{% static '/assets/heart-filled.png' %}" alt="">
-                            {% else %}
-                            <img id="heart-img" class="p-0" src="{% static '/assets/heart.png' %}" alt="">
-                            {% endif %}
-                        </button>
-                    </li>
-                    <li class="my-4">
-                        <a id="download" class="btn btn-lg btn-light d-inline-block breed-btn rounded-0"
-                            href="{{ url }}" download>Download</a>
-                        <a id="viewRaw" class="btn btn-lg btn-light d-inline-block breed-btn rounded-0" href="{{ url }}"
-                            target="_blank">View
-                            Raw</a>
-                    </li>
-                    <li class="my-4">
-                        <p class="m-0">Image URL: <a class="text-secondary" href="{{ url }}">{{ url }}</a></p>
-                    </li>
-                    <li class="my-4">
-                        <p class="m-0 mb-2">- Share with your friends on: (Coming Soon.)</p>
-                        <a class="mr-2" href="#"><img width="56" height="56" src="{% static '/assets/facebook.png' %}"
-                                alt=""></a>
-                        <a href="#"><img width="56" height="56" src="{% static '/assets/twitter.png' %}" alt=""></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <div class="bottom-controls m-0 p-0">
+        <ul class="list-inline text-light text-center p-0 m-0">
+            <li class="list-inline-item p-0 m-5">
+                <button id="onLike" class="btn">
+                    {% if url in liked_urls %}
+                    <img id="heart" class="p-0 image-sized" src="{% static '/assets/heart-filled.png' %}" alt="">
+                    {% else %}
+                    <img id="heart" class="p-0 image-sized" src="{% static '/assets/heart.png' %}" alt="">
+                    {% endif %}
+                </button>
 
+                <p class="text-light m-0">#{{ breed }}</p>
+                <p class="text-light m-0">#dog</p>
+                <p class="text-light mb-3">#doogy!</p>
+
+
+                <a class="btn btn-outline-light d-inline-block rounded-0" href="{{ url }}" download>Download</a>
+                <a class="btn btn-outline-light d-inline-block rounded-0" href="{{ url }}" target="_blank">View Raw</a>
+            </li>
+            <li class="list-inline-item p-0 m-5">
+                <p class="m-0">[Image URL]: <a class="text-light" href="{{ url }}">{{ url }}</a></p>
+                <p class="m-0 mb-2">- Share with your friends on: (Coming Soon.)</p>
+                <a href="#"><img width="56" height="56" src="{% static '/assets/facebook.png' %}" alt=""></a>
+                <a href="#"><img width="56" height="56" src="{% static '/assets/twitter.png' %}" alt=""></a>
+            </li>
+        </ul>
     </div>
-    <footer class="footer text-center py-3 bg-light">
-        <div class="div my-auto">
-            <ul class="list-inline m-0">
-                <li class="list-inline-item">
-                    <h4 class="d-inline-block align-middle mt-2">Dark Mode:</h4>
-                </li>
-                <li class="list-inline-item">
-                    <div class="btn-group d-inline-block" role="group" aria-label="Basic example">
-                        <button id="light-mode" type="button" class="btn btn-light btn-color rounded-0">ON</button>
-                        <button id="dark-mode" type="button" class="btn btn-light btn-color rounded-0">OFF</button>
-                    </div>
-                </li>
-            </ul>
-            <p id="just-text" class="m-0 text-secondary">&copy;QuangNguyen 2020 - Doogy!<span><a
-                        href="https://github.com/quangnguyen17/doogy_server"
-                        class="nav-link text-secondary d-inline-block">View project on GitHub</a></span></p>
-        </div>
-    </footer>
 </body>
 <script>
     $('#onLike').on('click', function (event) {

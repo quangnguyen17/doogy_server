@@ -105,7 +105,7 @@ function fetchImages() {
             });
 
             breedTxt = (breed.length < 1) ? 'random' : `keyword '${breed}'`;
-            $('#images-count-txt').text(`(About ${imagesCount} results shown for ${breedTxt}.)`);
+            $('#images-count-txt').text(`(Found ${imagesCount} results for ${breedTxt}.)`);
         }
     });
 }
@@ -153,7 +153,6 @@ function updateUI(darkMode) {
         $('.jumbotron h2').addClass('text-light');
         $('h4').addClass('text-light');
         $('.col-3 h2').addClass('text-light');
-        $('#heart-img').css('filter', 'invert(100%)');
         $('li p').addClass('text-light');
     } else {
         $('body').css('background-color', 'white');
@@ -173,7 +172,6 @@ function updateUI(darkMode) {
         $('.jumbotron h2').removeClass('text-light');
         $('h4').removeClass('text-light');
         $('.col-3 h2').removeClass('text-light');
-        $('#heart-img').css('filter', 'invert(0%)');
         $('li p').removeClass('text-light');
     }
 }
