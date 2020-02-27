@@ -36,18 +36,41 @@
     </script>
     <title>Doogy! - View</title>
     <style>
-        html,
         body {
-            height: 100%;
-            width: 100%;
-            position: absolute;
-            padding: 0px;
-            margin: 0px;
-            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), black),
-            url('{{ url }}');
+            overflow: hidden;
+        }
+
+        .bg-image {
+            background-color: black;
+            background-image: url('{{ url }}');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            filter: blur(16px);
+            -webkit-filter: blur(16px);
+            transform: scale(1.1);
+        }
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('{{ url }}');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .navbar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 2;
         }
 
         .bottom-controls {
@@ -57,19 +80,29 @@
             right: 0;
         }
 
-        .text-box:hover {
+        .content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0), black);
             opacity: 0;
+            transition: opacity 0.5s;
         }
 
-        .image-sized {
-            height: 100px;
-            width: 100px;
+        .content:hover {
+            opacity: 1;
         }
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-light bg-light px-5">
+    <div class="container-fluid bg-image m-0 p-0" style="z-index: 2; height: 100vh; width: 100vw;">
+    </div>
+    <nav class="navbar navbar-expand-md navbar-light bg-light px-5" style="z-index: 5;">
         <h3 class="font-weight-bold m-0">Doogy!</h3>
         <button class="navbar-toggler rounded-0" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -90,32 +123,31 @@
             {% endif %}
         </div>
     </nav>
-    <div class="bottom-controls m-0 p-0">
-        <ul class="list-inline text-light text-center p-0 m-0">
-            <li class="list-inline-item p-0 m-5">
-                <button id="onLike" class="btn">
-                    {% if url in liked_urls %}
-                    <img id="heart" class="p-0 image-sized" src="{% static '/assets/heart-filled.png' %}" alt="">
-                    {% else %}
-                    <img id="heart" class="p-0 image-sized" src="{% static '/assets/heart.png' %}" alt="">
-                    {% endif %}
-                </button>
+    <div class="background-image w-100 h-full">
+        <div class="content w-100 h-full m-0 p-0">
+            <ul class="list-inline bottom-controls text-light text-center p-0 m-0">
+                <li class="list-inline-item p-0 m-5">
+                    <button id="onLike" class="btn">
+                        {% if url in liked_urls %}
+                        <img id="heart" class="p-0 image-sized" src="{% static '/assets/heart-filled.png' %}" alt="">
+                        {% else %}
+                        <img id="heart" class="p-0 image-sized" src="{% static '/assets/heart.png' %}" alt="">
+                        {% endif %}
+                    </button>
 
-                <p class="text-light m-0">#{{ breed }}</p>
-                <p class="text-light m-0">#dog</p>
-                <p class="text-light mb-3">#doogy!</p>
-
-
-                <a class="btn btn-outline-light d-inline-block rounded-0" href="{{ url }}" download>Download</a>
-                <a class="btn btn-outline-light d-inline-block rounded-0" href="{{ url }}" target="_blank">View Raw</a>
-            </li>
-            <li class="list-inline-item p-0 m-5">
-                <p class="m-0">[Image URL]: <a class="text-light" href="{{ url }}">{{ url }}</a></p>
-                <p class="m-0 mb-2">- Share with your friends on: (Coming Soon.)</p>
-                <a href="#"><img width="56" height="56" src="{% static '/assets/facebook.png' %}" alt=""></a>
-                <a href="#"><img width="56" height="56" src="{% static '/assets/twitter.png' %}" alt=""></a>
-            </li>
-        </ul>
+                    <p class="text-light mb-3 mt-2">#{{ breed }} #dog #doogy!</p>
+                    <a class="btn btn-outline-light d-inline-block rounded-0" href="{{ url }}" download>Download</a>
+                    <a class="btn btn-outline-light d-inline-block rounded-0" href="{{ url }}" target="_blank">View
+                        Raw</a>
+                </li>
+                <li class="list-inline-item p-0 m-5">
+                    <p class="m-0">[Image URL]: <a class="text-light" href="{{ url }}">{{ url }}</a></p>
+                    <p class="m-0 mb-2">- Share with your friends on: (Coming Soon.)</p>
+                    <a href="#"><img width="56" height="56" src="{% static '/assets/facebook.png' %}" alt=""></a>
+                    <a href="#"><img width="56" height="56" src="{% static '/assets/twitter.png' %}" alt=""></a>
+                </li>
+            </ul>
+        </div>
     </div>
 </body>
 <script>
