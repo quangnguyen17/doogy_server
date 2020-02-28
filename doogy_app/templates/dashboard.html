@@ -12,18 +12,20 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Questrial&display=swap" rel="stylesheet">
     {% load static %}
     <link rel="stylesheet" href="{% static 'styles.css' %}">
     <script>
-        user_id = "{{ user_id }}";
-        heartImage = "{% static '/assets/heart.png' %}";
-        importedQuotes = "";
-        liked_urls = parseInt("{{ liked_urls|length }}");
+        const page = 'dashboard';
+        const user_id = "{{ user_id }}";
+        const heartImage = "{% static '/assets/heart.png' %}";
+        const importedQuotes = "";
+        const liked_urls = "{{ liked_urls }}".split(", ");
+        numberOfLikedURLs = parseInt("{{ liked_urls|length }}");
     </script>
     <script src="{% static 'script.js' %}"></script>
     <title>Doogy! - View</title>
@@ -63,10 +65,11 @@
                             <li class="list-inline-item text-center mx-2">
                                 <ul class="list-inline text-center">
                                     <li>
-                                        <h1 id="fav-text" class="display-4 dashboard-primary">{{ liked_urls|length }}
+                                        <h1 id="fav-text" class="display-4 dashboard-primary">
+                                            {{ liked_urls|length }}
                                         </h1>
                                     </li>
-                                    <li class="text-secondary">#favorites</li>
+                                    <li class="text-secondary">#my-favorites</li>
                                 </ul>
                             </li>
                             <li class="list-inline-item mx-2">
@@ -83,8 +86,10 @@
             </div>
         </div>
         <div class="row text-secondary m-0 px-5 text-center">
-            <span class="mb-5 w-50 d-block mx-auto">#doogy! #dog {% for breed in breeds %} #{{ breed }}
-                {% endfor %}</span>
+            <h5 class="mb-5 w-50 d-block mx-auto"><span class="badge badge-light m-1">#doogy!</span> <span
+                    class="badge badge-light m-1">#dog</span>{% for breed in breeds %}<span
+                    class="badge badge-light m-1">
+                    #{{ breed }}</span>{% endfor %}</h5>
         </div>
         <div class="row m-0 p-0 text-left justify-content-left align-items-start">
             {% for url in liked_urls %}
@@ -108,8 +113,9 @@
         </div>
         <div class="row m-0 p-5 text-center">
             <div class="col text-center">
-                <a id="more-doogy" href="/" class="btn btn-lg btn-light rounded-0 mb-2">Back to Feed!.</a><br>
-                <span class="text-secondary">#doogy! #dog</span>
+                <a id="more-doogy" href="/" class="btn btn-lg btn-light rounded-0 mb-3">Back to Feed!.</a><br>
+                <h5><span class="badge badge-light m-1">#doogy!</span><span class="badge badge-light m-1">#dog</span>
+                </h5>
             </div>
         </div>
     </div>
@@ -122,8 +128,7 @@
                 <li class="list-inline-item">
                     <div class="btn-group d-inline-block" role="group" aria-label="Basic example">
                         <button id="light-mode" type="button" class="btn btn-light btn-color rounded-0">ON</button>
-                        <button id="dark-mode" type="button"
-                            class="btn btn-light btn-color active rounded-0">OFF</button>
+                        <button id="dark-mode" type="button" class="btn btn-light btn-color rounded-0">OFF</button>
                     </div>
                 </li>
             </ul>
@@ -147,8 +152,8 @@
                 });
             });
 
-            liked_urls--;
-            $('#fav-text').text(`${liked_urls}`);
+            numberOfLikedURLs--;
+            $('#fav-text').text(`${numberOfLikedURLs}`);
         });
 
         $('.row .image-box').on('click', function (event) {

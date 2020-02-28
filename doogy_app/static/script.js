@@ -152,6 +152,10 @@ function updateUI(darkMode) {
         $('h4').addClass('text-light');
         $('.col-3 h2').addClass('text-light');
         $('.dashboard-primary').addClass('text-light');
+
+        if (page === 'dashboard') {
+            $('.badge').addClass('badge-dark');
+        }
     } else {
         $('body').css('background-color', 'white');
         $('nav').removeClass('bg-dark navbar-dark');
@@ -169,6 +173,10 @@ function updateUI(darkMode) {
         $('h4').removeClass('text-light');
         $('.col-3 h2').removeClass('text-light');
         $('.dashboard-primary').removeClass('text-light');
+
+        if (page === 'dashboard') {
+            $('.badge').removeClass('badge-dark');
+        }
     }
 }
 
