@@ -47,11 +47,18 @@ def view(request):
 
 def dashboard(request):
     if user_logged_in(request):
-        user = User.objects.all().get(id=request.session['user_id'])
+        user_id = request.session['user_id']
+        user = User.objects.all().get(id=user_id)
+
+        liked_urls = user.valid_urls()
+        breeds = []
+        for url in liked_urls:
+            breeds.append(get_breed(url))
 
         context = {
-            'liked_urls': user.valid_urls(),
-            'user_id': user.id,
+            'liked_urls': liked_urls,
+            'breeds': breeds,
+            'user_id': user_id,
             'user': user
         }
 

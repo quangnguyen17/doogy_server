@@ -23,7 +23,7 @@
         user_id = "{{ user_id }}";
         heartImage = "{% static '/assets/heart.png' %}";
         importedQuotes = "";
-        liked_urls = "";
+        liked_urls = parseInt("{{ liked_urls|length }}");
     </script>
     <script src="{% static 'script.js' %}"></script>
     <title>Doogy! - View</title>
@@ -38,57 +38,82 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <a id="collection" href="/" class="btn btn-light px-3 ml-3 rounded-0">Home</a>
+            <a id="collection" href="/" class="btn btn-light px-3 ml-3 rounded-0">Feed</a>
             <p class="ml-auto mr-3 my-0">{{ user.name }}</p>
             <a href="/logout" class="btn btn-warning rounded-0 px-3">Log Out</a>
         </div>
     </nav>
-    <div class="container-fluid p-5">
-        <div class="row" style="height: 56px;"></div>
-        <div class="row m-0 p-0 justify-content-center align-items-start">
-            <div class="col-md-3 col-sm-12 p-0 m-0 text-center p-4">
-                <div class="jumbotron px-2 py-5 bg-light rounded-0">
-                    <img id="profile-image" width="150" height="150" class="rounded-circle mb-4 bg-light">
-                    <h4 class="font-weight-bold mb-2">{{ user.name }}</h4>
-                    <p class="mb-1 text-secondary">{{ user.email }}</p>
-                    <p class="m-0 text-secondary">Joined Doogy! on {{ user.created_at.date }}</p>
-                </div>
-                <h4 class="font-weight-bold m-0 d-block w-100">My Wall</h4>
-                <p class="text-secondary">(Coming Soon.)</p>
+    <div class="container-fluid m-0 p-0">
+        <div class="row m-0 p-0" style="height: 56px;"></div>
+        <div class="row m-0 p-0 text-center">
+            <div class="col">
+                <ul class="list-inline text-center m-0 p-5">
+                    <li class="list-inline-item align-middle m-3">
+                        <img id="profile-image" width="225" height="225" class="rounded-circle bg-light m-0 p-0">
+                    </li>
+                    <li class="list-inline-item align-middle m-4">
+                        <h1 class="font-weight-bold my-1 dashboard-primary">{{ user.name }}</h1>
+                        <span class="text-secondary my-1">{{ user.email }}</span><br>
+                        <span class="text-secondary my-1">Joined Doogy! on {{ user.created_at.date }}</span>
+                        <h4 class="font-weight-bold m-0 mt-4">My Wall</h4>
+                        <span class="text-secondary my-1">(Coming Soon)</span>
+                    </li>
+                    <li class="list-inline-item align-middle m-3">
+                        <ul class="list-inline p-3">
+                            <li class="list-inline-item text-center mx-2">
+                                <ul class="list-inline text-center">
+                                    <li>
+                                        <h1 id="fav-text" class="display-4 dashboard-primary">{{ liked_urls|length }}
+                                        </h1>
+                                    </li>
+                                    <li class="text-secondary">#favorites</li>
+                                </ul>
+                            </li>
+                            <li class="list-inline-item mx-2">
+                                <ul class="list-inline text-center">
+                                    <li>
+                                        <h1 class="display-4 dashboard-primary">0</h1>
+                                    </li>
+                                    <li class="text-secondary">#my-wall</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
-            <div class="col-md-9 col-sm-12 p-3">
-                <div class="row">
-                    <h4 class="d-block w-100 font-weight-bold mb-3"> <span>My Favorites</h4>
-                    {% if liked_urls|length < 1 %}
-                    <p class="text-secondary">You don't have any favorites. Navigate back to home page to explore more!
-                    </p>
-                    {% endif %}
-                </div>
-                <div class="row">
-                    {% for url in liked_urls %}
-                    <div class="col-lg-4 col-md-6 col-sm-12 p-0 text-center">
-                        <div class="image-box" @click.self="parent" style="background-image: url({{ url }});">
-                            <div class="text-box text-center text-light">
-                                <div class="content-align-bottom text-center align-items-end">
-                                    <button id="like" class="btn like-section p-0 mt-auto"><img class="p-0" id="heart"
-                                            src="{% static '/assets/heart-filled.png' %}" alt=""></button>
-                                    <div class="buttons text-right d-inline-block">
-                                        <a id="viewRaw" class="btn btn-sm btn-outline-light rounded-0 d-inline-block"
-                                            href="{{ url }}" target="_blank">View Raw</a><br>
-                                        <a id="download"
-                                            class="btn btn-sm btn-outline-light rounded-0 d-inline-block mt-1"
-                                            href="{{ url }}" download>Download</a>
-                                    </div>
-                                </div>
+        </div>
+        <div class="row text-secondary px-5 text-center">
+            <span class="mb-5 w-50 d-block mx-auto">#doogy! #dog {% for breed in breeds %} #{{ breed }}
+                {% endfor %}</span>
+        </div>
+        <div class="row m-0 p-0 text-left justify-content-left align-items-start">
+            {% for url in liked_urls %}
+            <div class="col-lg-3 col-md-6 col-sm-12 p-0 text-center">
+                <div class="image-box" @click.self="parent" style="background-image: url({{ url }});">
+                    <div class="text-box text-center text-light">
+                        <div class="content-align-bottom text-center align-items-end">
+                            <button id="like" class="btn like-section p-0 mt-auto"><img class="p-0" id="heart"
+                                    src="{% static '/assets/heart-filled.png' %}" alt=""></button>
+                            <div class="buttons text-right d-inline-block">
+                                <a id="viewRaw" class="btn btn-sm btn-outline-light rounded-0 d-inline-block"
+                                    href="{{ url }}" target="_blank">View Raw</a><br>
+                                <a id="download" class="btn btn-sm btn-outline-light rounded-0 d-inline-block mt-1"
+                                    href="{{ url }}" download>Download</a>
                             </div>
                         </div>
                     </div>
-                    {% endfor %}
                 </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row m-0 p-5 text-center">
+            <div class="col text-center">
+                <a id="more-doogy" href="/" class="btn btn-lg btn-light rounded-0 mb-2">Back to Feed!.</a><br>
+                <span class="text-secondary">#doogy! #dog</span>
             </div>
         </div>
     </div>
-    <footer class="text-center mt-3 py-3 bg-light">
+    <footer class="text-center py-3 bg-light">
         <div class="my-auto">
             <ul class="list-inline m-0">
                 <li class="list-inline-item">
@@ -121,6 +146,9 @@
                     $(element).remove();
                 });
             });
+
+            liked_urls--;
+            $('#fav-text').text(`${liked_urls}`);
         });
 
         $('.row .image-box').on('click', function (event) {
