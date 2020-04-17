@@ -1,5 +1,4 @@
 # Doogy!
-Welcome to `doogy_server`
 
 "A place where dog enthusiasts can be who they are and find thousands of dog pictures being fetched from a public API in which hosts one of the biggest collections of open source dog pictures."
 
